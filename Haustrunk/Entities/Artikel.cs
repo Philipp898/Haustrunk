@@ -8,6 +8,6 @@ namespace Haustrunk.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Marke { get; set; } = string.Empty;
         public string Sorte { get; set; } = string.Empty;
-        public Gebinde Gebinde { get ; set;}
+        public Gebinde Gebinde { get ; set; }
     }
 }
