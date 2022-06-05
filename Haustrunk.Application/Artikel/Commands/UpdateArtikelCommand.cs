@@ -14,10 +14,12 @@ namespace Haustrunk.Application.Artikel.Commands
 
     public class UpdateArtikelCommandHandler : IRequestHandler<UpdateArtikelCommand>
     {
+        private readonly IDateTimeService _dateTime;
         private readonly IApplicationDbContext _context;
 
-        public UpdateArtikelCommandHandler(IApplicationDbContext context)
+        public UpdateArtikelCommandHandler(IDateTimeService dateTime, IApplicationDbContext context)
         {
+            _dateTime = dateTime;
             _context = context;
         }
         public async Task<Unit> Handle(UpdateArtikelCommand request, CancellationToken cancellationToken)
@@ -32,7 +34,7 @@ namespace Haustrunk.Application.Artikel.Commands
             entity.Marke = request.Marke;
             entity.Sorte = request.Sorte;
             entity.Gebinde = request.Gebinde;
-            entity.LastModified = DateTime.Now;
+            entity.LastModified = _dateTime.Now;
 
             await _context.SaveChangesAsync(cancellationToken);
 

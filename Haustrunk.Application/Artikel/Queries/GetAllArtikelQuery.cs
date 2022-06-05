@@ -18,14 +18,14 @@ namespace Haustrunk.Application.Artikel.Queries
         }
         public async Task<List<ArtikelDto>> Handle(GetAllArtikelQuery request, CancellationToken cancellationToken)
         {
-            var allEntities = await _context.Artikel.ToListAsync();
+            var allArtikel = await _context.Artikel.ToListAsync();
 
-            if (allEntities == null)
+            if (allArtikel == null)
             {
                 throw new KeyNotFoundException($"Es konnten keine Artikel gefunden werden");
             }
 
-            return allEntities.Select(art => new ArtikelDto()
+            return allArtikel.Select(art => new ArtikelDto()
             {
                 Id = art.Id,
                 Marke = art.Marke,

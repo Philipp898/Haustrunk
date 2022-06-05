@@ -7,6 +7,6 @@ namespace Haustrunk.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid UserId { get; set; }
         public DateTime BestelltZu { get; set; }
-        public List<Bestellposition> Bestellpositionen { get; set; } = new();
+        public IList<Bestellposition> Bestellpositionen { get; set; } = new List<Bestellposition>();
     }
 }

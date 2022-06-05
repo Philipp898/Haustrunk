@@ -16,11 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Bestellung\Commands\" />
-    <Folder Include="Bestellung\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Haustrunk\Haustrunk.Domain.csproj" />
   </ItemGroup>
 
