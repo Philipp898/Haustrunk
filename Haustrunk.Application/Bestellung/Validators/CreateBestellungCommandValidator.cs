@@ -17,6 +17,7 @@ namespace Haustrunk.Application.Bestellung.Validators
             RuleFor(b => b.BestelltZu)
                     .GreaterThan(_dateTime.Now)
                     .NotEmpty();
+            
         }
 
     }
