@@ -20,15 +20,20 @@ namespace Haustrunk.Application.Bestellung.Commands
     {
         private readonly IDateTimeService _dateTime;
         private readonly IApplicationDbContext _context;
-
-        public UpdateBestellungCommandHandler(IDateTimeService dateTime, IApplicationDbContext context)
+        private readonly IIdentityService _identityService;
+        private readonly ICurrentUserService _userService;
+        public UpdateBestellungCommandHandler(IDateTimeService dateTime, IApplicationDbContext context, IIdentityService identityService, ICurrentUserService userService)
         {
             _dateTime = dateTime;
             _context = context;
+            _identityService = identityService;
+            _userService = userService;
         }
 
         public async Task<Unit> Handle(UpdateBestellungCommand request, CancellationToken cancellationToken)
         {
+            var user = await _identityService.GetUserNameAsync(_userService.UserId ?? string.Empty);
+
             var bestellungEntity = await _context.Bestellungen.FindAsync(new object[] { request.Id }, cancellationToken);
 
             if (bestellungEntity == null)
@@ -39,6 +44,8 @@ namespace Haustrunk.Application.Bestellung.Commands
             bestellungEntity.BestelltZu = request.BestelltZu;
             bestellungEntity.Bestellpositionen = request.Bestellpositionen;
             bestellungEntity.LastModified = _dateTime.Now;
+            bestellungEntity.LastModifiedBy = user;
+
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
