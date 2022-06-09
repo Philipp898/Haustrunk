@@ -3,8 +3,9 @@
     public interface IIdentityService
     {
         Task<string> GetUserNameAsync(string userId);
-        Task<(IAsyncResult Result, string UserId)> CreateUserAsync(string userName, string password);
-        Task<IAsyncResult> DeleteUserAsync(string userId);
+        Task<(bool, string UserId)> CreateUserAsync(string userName, string password, string email);
+        Task<bool> DeleteUserAsync(string userId);
 
     }
 }
+    
